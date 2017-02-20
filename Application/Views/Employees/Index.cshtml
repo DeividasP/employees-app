@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Application.Models.Employee>
+﻿@model PagedList.IPagedList<Application.Models.Employee>
+
+@using PagedList.Mvc;
 
 @{ 
     ViewBag.Title = "Employees";
@@ -24,20 +26,22 @@
 
 <table class="table">
     <tr>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Salary (Net)</th>
-        <th>Salary (Gross)</th>
+        <th class="col-md-3">Name</th>
+        <th class="col-md-3">Surname</th>
+        <th class="col-md-3">Salary (Net)</th>
+        <th class="col-md-3">Salary (Gross)</th>
     </tr>
 
 @foreach (var employee in Model)
 {
     <tr>
-        <td>@employee.Name</td>
-        <td>@employee.Surname</td>
-        <td>@employee.Salary</td>
-        <td>NaN</td>
+        <td class="span3">@employee.Name</td>
+        <td class="span3">@employee.Surname</td>
+        <td class="span3">@employee.Salary</td>
+        <td class="span3">NaN</td>
     </tr>
 }
 
 </table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, savedFilter = ViewBag.SavedFilter }))

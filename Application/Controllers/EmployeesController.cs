@@ -1,4 +1,5 @@
 ﻿using Application.DAL;
+using PagedList;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -10,27 +11,43 @@ namespace Application.Controllers
 
         private readonly EmployeeDbContext dbContext = new EmployeeDbContext();
 
-        public ActionResult Index(FormCollection form)
+        public ActionResult Index(FormCollection form, string savedFilter, int? page)
         {
             var employees = from e in dbContext.Employees select e;
 
+            employees = employees.OrderBy(e => e.Name);
+
+            string filter = "";
+            string filterType = "";
+
             if (form.Count > 0)
             {
-                string filter = form["filter"];
-                string filterType = form["filter-type"];
+                filter = form["filter"];
+                filterType = form["filter-type"];
 
-                switch (filterType)
-                {
-                    case "name":
-                        employees = employees.Where(e => e.Name.Contains(filter));
-                        break;
-                    case "surname":
-                        employees = employees.Where(e => e.Surname.Contains(filter));
-                        break;
-                }
+                ViewBag.SavedFilter = filter + ":" + filterType;
+            }
+            else if (!string.IsNullOrEmpty(savedFilter))
+            {
+                string[] filterArgs = savedFilter.Split(':');
+
+                filter = filterArgs[0];
+                filterType = filterArgs[1];
+
+                ViewBag.SavedFilter = savedFilter;
             }
 
-            return View(employees.ToList());
+            switch (filterType)
+            {
+                case "name":
+                    employees = employees.Where(e => e.Name.Contains(filter));
+                    break;
+                case "surname":
+                    employees = employees.Where(e => e.Surname.Contains(filter));
+                    break;
+            }
+
+            return View(employees.ToPagedList(page ?? 1, 5));
         }
 
     }
