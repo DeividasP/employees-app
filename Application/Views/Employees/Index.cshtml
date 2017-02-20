@@ -6,6 +6,22 @@
 
 <h1>Employees</h1>
 
+@using (Html.BeginForm("Index", "Employees", FormMethod.Post, new { @class = "form-inline" }))
+{
+    <div class="form-group">
+        @Html.DropDownList("filter-type", new SelectListItem[] {
+        new SelectListItem { Text = "Contains in name", Value = "name" },
+        new SelectListItem { Text = "Contains in surname", Value = "surname" }
+    }, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.TextBox("filter", null, new { @class = "form-control" })
+    </div>
+    <button class="form-control" type="submit">
+        <span class="glyphicon glyphicon-filter"></span>
+    </button>
+}
+
 <table class="table">
     <tr>
         <th>Name</th>

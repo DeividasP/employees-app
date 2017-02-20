@@ -10,9 +10,27 @@ namespace Application.Controllers
 
         private readonly EmployeeDbContext dbContext = new EmployeeDbContext();
 
-        public ActionResult Index()
+        public ActionResult Index(FormCollection form)
         {
-            return View(dbContext.Employees.ToList());
+            var employees = from e in dbContext.Employees select e;
+
+            if (form.Count > 0)
+            {
+                string filter = form["filter"];
+                string filterType = form["filter-type"];
+
+                switch (filterType)
+                {
+                    case "name":
+                        employees = employees.Where(e => e.Name.Contains(filter));
+                        break;
+                    case "surname":
+                        employees = employees.Where(e => e.Surname.Contains(filter));
+                        break;
+                }
+            }
+
+            return View(employees.ToList());
         }
 
     }
