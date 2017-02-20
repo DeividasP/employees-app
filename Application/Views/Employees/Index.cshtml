@@ -1,4 +1,4 @@
-﻿@model Application.Models.Employee
+﻿@model IEnumerable<Application.Models.Employee>
 
 @{ 
     ViewBag.Title = "Employees";
@@ -13,10 +13,15 @@
         <th>Salary (Net)</th>
         <th>Salary (Gross)</th>
     </tr>
+
+@foreach (var employee in Model)
+{
     <tr>
-        <td>Deividas</td>
-        <td>Popelskis</td>
-        <td>NaN</td>
+        <td>@employee.Name</td>
+        <td>@employee.Surname</td>
+        <td>@employee.Salary</td>
         <td>NaN</td>
     </tr>
+}
+
 </table>
