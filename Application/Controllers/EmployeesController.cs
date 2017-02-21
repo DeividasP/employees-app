@@ -1,6 +1,7 @@
 ﻿using Application.DAL;
 using Application.Models;
 using PagedList;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -85,6 +86,36 @@ namespace Application.Controllers
 
             return View(employee);
         }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Employee employee = dbContext.Employees.Find(id);
+
+            if (employee == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(employee);
+        }
+
+        [HttpPost]
+        public ActionResult Edit([Bind(Include = "ID, Name, Surname, Salary")] Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                dbContext.Entry(employee).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
 
     }
 
