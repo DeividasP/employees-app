@@ -1,4 +1,5 @@
 ﻿using Application.DAL;
+using Application.Models;
 using PagedList;
 using System.Linq;
 using System.Web.Mvc;
@@ -48,6 +49,23 @@ namespace Application.Controllers
             }
 
             return View(employees.ToPagedList(page ?? 1, 5));
+        }
+
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add([Bind(Include = "ID, Name, Surname, Salary")] Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                dbContext.Employees.Add(employee);
+                dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
     }

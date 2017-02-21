@@ -1,4 +1,6 @@
-﻿namespace Application.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Application.Models
 {
 
     public class Employee
@@ -10,18 +12,21 @@
             set;
         }
 
+        [Required]
         public string Name
         {
             get;
             set;
         }
 
+        [Required]
         public string Surname
         {
             get;
             set;
         }
 
+        [Required]
         public decimal Salary
         {
             get;
