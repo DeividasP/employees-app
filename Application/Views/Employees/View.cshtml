@@ -1,0 +1,26 @@
+﻿@model Application.Models.Employee
+
+@{
+    ViewBag.Title = "Viewing employee";
+}
+
+<h1>Viewing employee</h1>
+<hr />
+
+<dl class="dl-horizontal">
+    <dt>Name</dt>
+    <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+    <dt>Surname</dt>
+    <dd>@Html.DisplayFor(model => model.Surname)</dd>
+
+    <dt>Salary (Net)</dt>
+    <dd>@Html.DisplayFor(model => model.Salary)</dd>
+
+    <dt>Salary (Gross)</dt>
+    <dd>NaN</dd>
+</dl>
+
+<p>
+    @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-primary" })
+</p>

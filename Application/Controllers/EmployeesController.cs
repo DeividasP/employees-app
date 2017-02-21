@@ -2,6 +2,7 @@
 using Application.Models;
 using PagedList;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace Application.Controllers
@@ -66,6 +67,23 @@ namespace Application.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        public ActionResult View(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Employee employee = dbContext.Employees.Find(id);
+
+            if (employee == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(employee);
         }
 
     }

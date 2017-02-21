@@ -26,3 +26,11 @@ textarea {
 form {
     margin-bottom: 15px;
 }
+
+a.glyphicon {
+    margin: 0 5px;
+}
+
+a.glyphicon:hover {
+    text-decoration: none;
+}
