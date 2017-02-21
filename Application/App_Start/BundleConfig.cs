@@ -8,6 +8,9 @@ namespace Application
 
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/salary_converter").Include(
+                        "~/Scripts/salary_converter.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
