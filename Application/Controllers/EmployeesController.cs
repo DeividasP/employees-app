@@ -116,6 +116,34 @@ namespace Application.Controllers
             return View();
         }
 
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Employee employee = dbContext.Employees.Find(id);
+
+            if (employee == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(employee);
+        }
+
+        [HttpPost]
+        public ActionResult Delete([Bind(Include = "ID, Name, Surname, Salary")] Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                dbContext.Entry(employee).State = EntityState.Deleted;
+                dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
 
     }
 

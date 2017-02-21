@@ -188,6 +188,7 @@
     <Content Include="Views\Employees\Add.cshtml" />
     <Content Include="Views\Employees\View.cshtml" />
     <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\Employees\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

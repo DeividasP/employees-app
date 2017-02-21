@@ -1,0 +1,31 @@
+﻿@model Application.Models.Employee
+
+@{
+    ViewBag.Title = "Delete employee";
+}
+
+<h1>Delete employee</h1>
+<hr />
+
+<dl class="dl-horizontal">
+    <dt>Name</dt>
+    <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+    <dt>Surname</dt>
+    <dd>@Html.DisplayFor(model => model.Surname)</dd>
+
+    <dt>Salary (Net)</dt>
+    <dd>@Html.DisplayFor(model => model.Salary)</dd>
+
+    <dt>Salary (Gross)</dt>
+    <dd>NaN</dd>
+</dl>
+
+@using (Html.BeginForm("Delete", "Employees", Model, FormMethod.Post, null))
+{
+    <input type="submit" value="Delete" class="btn btn-block btn-danger" />
+}
+
+<p>
+    @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-primary" })
+</p>
