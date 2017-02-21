@@ -1,5 +1,6 @@
 ﻿@model PagedList.IPagedList<Application.Models.Employee>
 
+@using Application.BLL;
 @using PagedList.Mvc;
 
 @{ 
@@ -44,7 +45,7 @@
         <td>@employee.Name</td>
         <td>@employee.Surname</td>
         <td>@employee.Salary</td>
-        <td>NaN</td>
+        <td>@SalaryUtilities.ToGrossSalary(employee.Salary)</td>
         <td class="text-center">
             @Html.ActionLink(" ", "View", new { id = employee.ID }, new { @class = "glyphicon glyphicon-eye-open" })
             @Html.ActionLink(" ", "Edit", new { id = employee.ID }, new { @class = "glyphicon glyphicon-edit" })

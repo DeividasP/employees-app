@@ -1,5 +1,7 @@
 ﻿@model Application.Models.Employee
 
+@using Application.BLL;
+
 @{
     ViewBag.Title = "Viewing employee";
 }
@@ -18,7 +20,7 @@
     <dd>@Html.DisplayFor(model => model.Salary)</dd>
 
     <dt>Salary (Gross)</dt>
-    <dd>NaN</dd>
+    <dd>@SalaryUtilities.ToGrossSalary(Model.Salary)</dd>
 </dl>
 
 <p>
